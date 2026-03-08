@@ -50,8 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
         showLoading(true);
         try {
             const response = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues');
-            const data = await response.json();
-            allIssues = data;
+            const json = await response.json();
+            allIssues = Array.isArray(json) ? json : (json.data || []);
             renderIssues(allIssues);
         } catch (error) {
             console.error('Error fetching issues:', error);
@@ -65,8 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
         showLoading(true);
         try {
             const response = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${encodeURIComponent(query)}`);
-            const data = await response.json();
-            allIssues = data; // Update current list based on search
+            const json = await response.json();
+            allIssues = Array.isArray(json) ? json : (json.data || []); // Update current list based on search
             currentTab = 'all'; // Reset tab on search
             updateActiveTab();
             renderIssues(allIssues);
