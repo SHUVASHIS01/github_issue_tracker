@@ -80,8 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
     async function fetchSingleIssue(id) {
         try {
             const response = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`);
-            const data = await response.json();
-            populateAndShowModal(data);
+            const json = await response.json();
+            const issueData = json.data || json;
+            populateAndShowModal(issueData);
         } catch (error) {
             console.error('Error fetching single issue:', error);
         }
