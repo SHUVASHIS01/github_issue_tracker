@@ -1,9 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- State ---
     let allIssues = [];
     let currentTab = 'all';
 
-    // --- DOM Elements ---
     const loginForm = document.getElementById('login-form');
     const loginView = document.getElementById('login-view');
     const dashboardView = document.getElementById('dashboard-view');
@@ -16,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('search-input');
     const tabBtns = document.querySelectorAll('.tab-btn');
 
-    // Modal Elements
     const modal = document.getElementById('issue-modal');
     const closeModalBtn = document.getElementById('close-modal');
     const modalTitle = document.getElementById('modal-title');
@@ -28,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalAssignees = document.getElementById('modal-assignees');
     const modalPriority = document.getElementById('modal-priority');
 
-    // --- Authentication ---
     if (loginForm) {
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -45,7 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- API & Data Handling ---
     async function fetchIssues() {
         showLoading(true);
         try {
@@ -66,8 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${encodeURIComponent(query)}`);
             const json = await response.json();
-            allIssues = Array.isArray(json) ? json : (json.data || []); // Update current list based on search
-            currentTab = 'all'; // Reset tab on search
+            allIssues = Array.isArray(json) ? json : (json.data || []);
+            currentTab = 'all';
             updateActiveTab();
             renderIssues(allIssues);
         } catch (error) {
@@ -97,9 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Rendering ---
     function renderIssues(issuesToRender) {
-        // Filter based on current tab if it's not all
         let filtered = issuesToRender;
         if (currentTab !== 'all') {
             filtered = issuesToRender.filter(issue => issue.status.toLowerCase() === currentTab);
@@ -117,14 +110,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = document.createElement('div');
             const isOpen = issue.status.toLowerCase() === 'open';
             
-            // Challenge: Top border based on category
             const borderTopClass = isOpen ? 'border-t-4 border-t-green-500' : 'border-t-4 border-t-purple-500';
             const statusIcon = isOpen ? './assets/Open-Status.png' : './assets/Closed- Status .png';
 
             card.className = `bg-white rounded-lg shadow-sm border border-gray-200 cursor-pointer hover:shadow-md transition-shadow flex flex-col h-full ${borderTopClass}`;
             card.onclick = () => fetchSingleIssue(issue.id || issue._id);
 
-            // Labels HTML
             let labelsHtml = '';
             if (issue.labels && issue.labels.length > 0) {
                 labelsHtml = issue.labels.slice(0, 3).map(label => {
@@ -138,7 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }).join('');
             }
 
-            // Priority HTML
             let priorityHtml = '';
             if (issue.priority) {
                 let pBg = 'bg-gray-100', pText = 'text-gray-600';
@@ -149,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 priorityHtml = `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${pBg} ${pText}">${issue.priority}</span>`;
             }
 
-            // Format date
             const dateStr = issue.createdAt ? new Date(issue.createdAt).toLocaleDateString() : 'N/A';
             const authorName = issue.author ? (issue.author.name || issue.author) : 'Unknown';
             const issueNumber = issue.id || issue._id ? `#${String(issue.id || issue._id).slice(-4)}` : '#---';
@@ -175,7 +164,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Tab Handling ---
     tabBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             currentTab = btn.getAttribute('data-tab');
@@ -194,7 +182,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Search Handling ---
     let searchTimeout;
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
@@ -211,7 +198,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Modal Handling ---
     function populateAndShowModal(issue) {
         const isOpen = (issue.status || '').toLowerCase() === 'open';
         
@@ -236,7 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
             modalPriority.className = 'px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs font-bold inline-block';
         }
 
-        // Assignees
         if (issue.assignee || issue.assignees) {
             const assignees = issue.assignees || [issue.assignee];
             modalAssignees.textContent = assignees.map(a => a.name || a).join(', ');
@@ -244,7 +229,6 @@ document.addEventListener('DOMContentLoaded', () => {
             modalAssignees.textContent = '-';
         }
 
-        // Labels
         modalLabels.innerHTML = '';
         if (issue.labels && issue.labels.length > 0) {
             issue.labels.forEach(label => {
@@ -271,7 +255,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Close modal on outside click
     window.addEventListener('click', (e) => {
         if (e.target === modal) {
             modal.classList.add('hidden');

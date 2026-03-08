@@ -18,19 +18,13 @@
 </head>
 
 <body class="min-h-screen text-gray-800">
-
-    <!-- Login View -->
     <div id="login-view" class="flex min-h-screen items-center justify-center p-4">
         <div class="w-full max-w-md bg-white rounded-xl shadow-sm border border-gray-100 p-8 space-y-6">
-
-            <!-- Header -->
             <div class="flex flex-col items-center space-y-2">
                 <img src="./assets/github-logo.png" alt="GitHub Logo" class="h-16 w-16 mb-2">
                 <h1 class="text-2xl font-bold tracking-tight text-gray-900">GitHub Issues Tracker</h1>
                 <p class="text-sm text-gray-500">Sign in to manage your issues</p>
             </div>
-
-            <!-- Login Form -->
             <form id="login-form" class="space-y-4 pt-2">
                 <div class="space-y-1">
                     <label for="username" class="block text-sm font-semibold text-gray-700">Username</label>
@@ -60,8 +54,6 @@
                     <span class="bg-white px-2 text-gray-400 font-medium">OR</span>
                 </div>
             </div>
-
-            <!-- Demo Credentials -->
             <div class="bg-slate-50 rounded-lg p-5 border border-gray-100 flex flex-col items-center">
                 <p class="text-xs text-gray-500 mb-3">Demo Credentials:</p>
                 <div class="text-sm">
@@ -71,21 +63,15 @@
                             class="font-normal text-gray-600">admin123</span></p>
                 </div>
             </div>
-
         </div>
     </div>
-
-    <!-- Dashboard View (Hidden initially) -->
     <div id="dashboard-view" class="hidden min-h-screen bg-[#f3f4f6]">
-        <!-- Navbar -->
         <nav class="bg-white border-b border-gray-200 sticky top-0 z-10 p-4">
             <div class="max-w-[1400px] mx-auto flex items-center justify-between">
-                <!-- Logo and Title -->
                 <div class="flex items-center space-x-2">
                     <img src="./assets/github-logo.png" alt="Logo" class="h-8 w-8">
                     <span class="font-bold text-gray-900 text-lg">GitHub Issues Tracker</span>
                 </div>
-                <!-- Search and Button (Desktop hidden on small, responsive later) -->
                 <div class="flex items-center space-x-4">
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -104,10 +90,7 @@
                 </div>
             </div>
         </nav>
-
-        <!-- Main Content Container -->
         <main class="max-w-[1400px] mx-auto p-6 md:p-8">
-            <!-- Tabs -->
             <div class="flex space-x-2 mb-6">
                 <button
                     class="tab-btn active px-6 py-2 rounded border border-transparent bg-[#4A00FF] text-white text-sm font-medium"
@@ -119,10 +102,7 @@
                     class="tab-btn px-6 py-2 rounded border border-gray-200 bg-white text-gray-700 text-sm font-medium hover:bg-gray-50 transition-colors"
                     data-tab="closed">Closed</button>
             </div>
-
-            <!-- Issues List Card Container -->
             <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-                <!-- Header Info -->
                 <div
                     class="p-6 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div class="flex items-center space-x-4">
@@ -143,32 +123,22 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Issues Grid Area -->
                 <div class="p-6">
-                    <!-- Loading Spinner -->
                     <div id="loading-spinner" class="flex justify-center items-center py-12 hidden">
                         <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#4A00FF]"></div>
                     </div>
-
-                    <!-- Grid -->
-                    <div id="issues-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        <!-- Cards will be injected here -->
-                    </div>
+                    <div id="issues-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- Modal Overlay -->
     <div id="issue-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto flex flex-col">
             <div class="p-6">
-                <!-- Modal Head -->
                 <div class="flex items-start justify-between mb-4">
                     <h2 id="modal-title" class="text-2xl font-bold text-gray-900 leading-tight"></h2>
                 </div>
-
                 <div class="flex items-center space-x-2 text-sm text-gray-500 mb-6 flex-wrap gap-y-2">
                     <span id="modal-status"
                         class="px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">Open</span>
@@ -177,11 +147,7 @@
                     <span>•</span>
                     <span id="modal-date"></span>
                 </div>
-
-                <div id="modal-labels" class="flex flex-wrap gap-2 mb-6">
-                    <!-- Labels injected here -->
-                </div>
-
+                <div id="modal-labels" class="flex flex-wrap gap-2 mb-6"></div>
                 <div class="prose prose-sm max-w-none text-gray-700 mb-8">
                     <p id="modal-description"></p>
                 </div>
