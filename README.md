@@ -128,7 +128,7 @@ Password: admin123
 
 ## 📤 What to submit
 
-- **GitHub Repository Link:**
+- **GitHub Repository Link:** https://github.com/SHUVASHIS01/github_issue_tracker.git
 - **Live Site Link:**
 
 ---
